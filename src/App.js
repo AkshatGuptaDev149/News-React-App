@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 export default class App extends Component {
-    pageSize=5
+    pageSize=6
     ApiKey=process.env.REACT_APP_NEWS_API
   render() {    
     return (
