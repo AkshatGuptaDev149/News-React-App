@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner'
 import PropTypes from 'prop-types'
+import LoadingBar from 'react-top-loading-bar'
 
 
 export default class News extends Component {
@@ -25,6 +26,7 @@ export default class News extends Component {
       articles:this.articles,
       loading:false,
       page:1,
+      LoadingBarProgress:0
     }
     // Changing titel as NewsFever category and capitalizing the first character of category
     document.title=`NewsFever -${this.Capitalize(this.props.category)}`
@@ -32,14 +34,16 @@ export default class News extends Component {
 
   async Updatefunc(pages){
     let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=040bef3863f5493390a0d267796baba6&page=${pages}&pageSize=${this.props.pageSize}`;
-    this.setState({loading:true})
+    this.setState({loading:true,LoadingBarProgress:this.state.LoadingBarProgress+30})
     let NewsPromise=await fetch(url);
+   
     let Newsdata=await NewsPromise.json()
     this.setState({
       page:pages,
       articles:Newsdata.articles,
       totalResults:Math.ceil(Newsdata.totalResults/this.props.pageSize),
-      loading:false
+      loading:false,
+      LoadingBarProgress:100
     })
   }
 
@@ -57,6 +61,13 @@ export default class News extends Component {
   render() {
     
     return (
+      <>
+      <LoadingBar
+      color='#0f67f5'
+      height={4}
+      progress={this.state.LoadingBarProgress}
+      onLoaderFinished={() => this.setState({LoadingBarProgress:0})}
+      />
       <div className='container my-2'>
         <h1 className='my-4'>Top {this.Capitalize(this.props.category)} Headlines</h1>
         {this.state.loading && <Spinner/>} {/*this means that if loading is true show spinner otherwise not*/}
@@ -73,6 +84,7 @@ export default class News extends Component {
           <button disabled={this.state.page>=this.state.totalResults} type="button" className="btn btn-outline-info " onClick={this.handleNext}>Next &#8680;</button>
         </div>  
       </div>
+      </>
     )
   }
 }
