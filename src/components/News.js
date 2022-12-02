@@ -33,7 +33,7 @@ export default class News extends Component {
   }
 
   async Updatefunc(pages){
-    let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=040bef3863f5493390a0d267796baba6&page=${pages}&pageSize=${this.props.pageSize}`;
+    let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.ApiKey}&page=${pages}&pageSize=${this.props.pageSize}`;
     this.setState({loading:true,LoadingBarProgress:this.state.LoadingBarProgress+30})
     let NewsPromise=await fetch(url);
    
