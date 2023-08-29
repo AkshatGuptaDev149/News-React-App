@@ -1,3 +1,9 @@
+# How to use(for developers cloning in their local environment)
+Make an account on the website  'https://newsapi.org' and get a free api key.
+Once you get the api key make a file by the name of '.env.local' and type in that 'REACT_APP_NEWS_API=your api key'. save and exit the file
+open any terminal in the folder and type 'npm install' to install the dependecies and then using 'start react app you can start your development server'
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
